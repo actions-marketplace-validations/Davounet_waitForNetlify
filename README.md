@@ -43,7 +43,7 @@ steps:
     with:
       site_id: 'YOUR_SITE_ID'
     env:
-      NETLIFY_TOKEN: ${{ secrets.NETLIFY_TOKEN }}
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 # You can then use the 2 outputs like this:
 # ${{ steps.netlifyDeploy.outputs.deploy_id }}
 # ${{ steps.netlifyDeploy.outputs.deploy_url }}
