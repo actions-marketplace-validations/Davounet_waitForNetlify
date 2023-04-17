@@ -81,7 +81,7 @@ async function waitForUrlAccessible(url) {
 
 async function run() {
   try {
-    const siteId = core.getInput('site_id')
+    const siteId = core.getInput('site_id', { required: true })
     const context = core.getInput('context')
     const netlifyAuthToken = process.env.NETLIFY_AUTH_TOKEN
     const sha = github.context.eventName === 'pull_request' ? github.context.payload.pull_request.head.sha : github.context.sha
@@ -94,8 +94,8 @@ async function run() {
     await waitForDeployReady(siteId, deploy.id)
     await waitForUrlAccessible(deploy.deploy_ssl_url)
 
-    core.exportVariable('deploy_id', deploy.id)
-    core.exportVariable('deploy_url', deploy.deploy_ssl_url)
+    core.setOutput('deploy_id', deploy.id)
+    core.setOutput('deploy_url', deploy.deploy_ssl_url)
   } catch (error) {
     core.setFailed(typeof error === 'string' ? error : error.message)
   }
