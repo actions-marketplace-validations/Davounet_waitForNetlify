@@ -1,0 +1,24 @@
+{
+  "name": "wait-for-netlify",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Davounet/waitForNetlify.git",
+  "author": "David Carle <davcarle@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^5.1.1"
+  },
+  "prettier": {
+    "printWidth": 140,
+    "tabWidth": 2,
+    "tabs": false,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none",
+    "bracketSpacing": true,
+    "sortAttributes": true,
+    "arrowParens": "avoid",
+    "htmlWhitespaceSensitivity": "css"
+  }
+}
