@@ -22,7 +22,12 @@ async function waitForDeployCreated(siteId, sha, context) {
     const deploys = await response.json()
     const deploy = deploys.find(d => d.commit_ref === sha && (!context || d.context === context))
 
-    if (deploy) return deploy
+    if (deploy) {
+      core.info(`The deployment has been created and has id ${deploy.id}`)
+      core.info(`The related url is ${deploy.deploy_ssl_url}`)
+      core.info('')
+      return deploy
+    }
     core.warning('Deploy not available yet')
     throw new Error('deploy not available yet')
   }
@@ -36,7 +41,7 @@ async function waitForDeployCreated(siteId, sha, context) {
  * @param {string} deployId - The id of the netlify deploy object
  */
 async function waitForDeployReady(siteId, deployId) {
-  core.info('Waiting for the deploy to finish')
+  core.info(`Waiting for the deploy ${deployId} to finish`)
   const timeout = 60 * 15
   const delay = 15
   const retries = Math.floor(timeout / delay)
@@ -47,7 +52,11 @@ async function waitForDeployReady(siteId, deployId) {
     })
     const deploy = await response.json()
 
-    if (['ready', 'error'].includes(deploy.state)) return
+    if (['ready', 'error'].includes(deploy.state)) {
+      core.info('The deployment has finished')
+      core.info('')
+      return
+    }
     core.warning('Deploy not finished yet')
     throw new Error('deploy still ongoing')
   }
@@ -60,7 +69,7 @@ async function waitForDeployReady(siteId, deployId) {
  * @param {string} url - The url of the netlify deploy
  */
 async function waitForUrlAccessible(url) {
-  core.info('Waiting for the url to be accessible')
+  core.info(`Waiting for the url ${url} to be accessible`)
   const timeout = 60
   const delay = 10
   const retries = Math.floor(timeout / delay)
