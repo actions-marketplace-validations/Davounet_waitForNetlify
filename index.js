@@ -28,7 +28,7 @@ async function waitForDeployCreated(siteId, sha, context) {
       core.info('')
       return deploy
     }
-    core.warning('Deploy not available yet')
+    core.debug('Deploy not available yet')
     throw new Error('deploy not available yet')
   }
 
@@ -57,7 +57,7 @@ async function waitForDeployReady(siteId, deployId) {
       core.info('')
       return
     }
-    core.warning('Deploy not finished yet')
+    core.debug('Deploy not finished yet')
     throw new Error('deploy still ongoing')
   }
 
